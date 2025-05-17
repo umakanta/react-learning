@@ -1,0 +1,15 @@
+.userList {
+    /* border: 3px solid black; */
+    padding: 20px;
+    text-align: center;
+}
+
+.users {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    color: rgb(161, 173, 114);
+    /* background-color: cyan; */
+}

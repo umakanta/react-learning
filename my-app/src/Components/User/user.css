@@ -1,0 +1,12 @@
+.user{
+    border: 3px solid black;
+    /* height: 250px; */
+    width: 350px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    margin: 5px;
+}
