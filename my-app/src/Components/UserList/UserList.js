@@ -1,23 +1,44 @@
 import User from "../User/User";
 import userData from "../../data/User.json"
 import "./userlist.css"
+import { useState } from "react";
+import Button from 'react-bootstrap/Button';
 
 
 function UserList() {
 
-    const users = userData.users
+    // const users = userData.users
+    const [users, setUsers] = useState(userData.users)
     // console.log(users);
+
+
+    function onSortByAge() {
+        const sortedUsers = [...users]
+        sortedUsers.sort((user1,user2) => {
+            return user1.age - user2.age
+        })
+        setUsers(sortedUsers);
+    }
+
+    function onDeleteButtonClick(evt, id) {
+        console.log('Delete Clicked for userId: ', id)
+        const tempUsers = users.filter((user) =>{
+            return user.id != id;
+        })
+        setUsers(tempUsers);
+    }
 
     return <div className="userList">
 
        
         <h2>Users</h2>
+        <Button onClick={onSortByAge}>Sort By Age</Button>
 
         <div className="users">
         {
             users.map((user) => {
                 // return <User name={user.firstName} age={user.age} />
-                return <User key={user.id} userData={user}    />
+                return <User onDeleteUser={onDeleteButtonClick} key={user.id} userData={user}    />
             })
         }
 
