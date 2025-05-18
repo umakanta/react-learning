@@ -1,3 +1,4 @@
+import NavbarComp from "../Navbar/Navbar";
 import User from "../User/User";
 import "./userlist.css"
 import { useState } from "react";
@@ -29,7 +30,7 @@ function UserList(props) {
 
     return <div className="userList">
 
-
+    <NavbarComp/>
         <h2>Users</h2>
         <Button onClick={onSortByAge}>Sort By Age</Button>
 

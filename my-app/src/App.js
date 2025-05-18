@@ -7,6 +7,7 @@ import UserList from './Components/UserList/UserList';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import userData from './data/User.json'
 import { useState } from 'react';
+import UserPage from './Components/UserPage/UserPage';
 
 function App() {
   const isLoggedInStr = localStorage.getItem("isLoggedIn");
@@ -22,7 +23,6 @@ function App() {
     setUsers(usersClone)
   }
   return <div>
-    <NavbarComp />
 
     {/* <Form/> */}
     {/* <Counter/> */}
@@ -38,6 +38,7 @@ function App() {
         <Route path="/counter" element={<Counter />} />
         <Route path="/form" element={<Form />} />
         <Route path="/userform" element={<UserForm onAddUser={onFormSubmit} />} />
+        <Route path="/users/:userId" element={ <UserPage />} />
       </Routes>
     </BrowserRouter>
 
