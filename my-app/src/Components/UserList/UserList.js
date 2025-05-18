@@ -1,3 +1,4 @@
+import SpinnerComp from "../Common/Spinner/Spinner";
 import NavbarComp from "../Navbar/Navbar";
 import User from "../User/User";
 import "./userlist.css"
@@ -10,7 +11,8 @@ function UserList(props) {
     // const users = userData.users
     // const [users, setUsers] = useState(userData.users)
     // console.log(users);
-    const { users, setUsers } = props
+    const { users, setUsers } = props;
+    const isLoading = props.isLoading;
 
     function onSortByAge() {
         const sortedUsers = [...users]
@@ -29,23 +31,25 @@ function UserList(props) {
     }
 
     return <div className="userList">
+        <NavbarComp />
 
-    <NavbarComp/>
         <h2>Users</h2>
-        <Button onClick={onSortByAge}>Sort By Age</Button>
 
-        <div className="users">
-            {
-                users.map((user) => {
-                    // return <User name={user.firstName} age={user.age} />
-                    return <User onDeleteUser={onDeleteButtonClick} key={user.id} userData={user} />
-                })
-            }
 
-            {/* <User name="Umakanta" age="38"/>
-        <User name="Sai" age="31"/>
-        <User name="Harse" age="45"/> */}
-        </div>
+        {
+            (isLoading) ? <SpinnerComp /> : <div>
+                <Button onClick={onSortByAge}>Sort By Age</Button>
+                <div className="users">
+                    {
+                        users.map((user) => {
+                            // return <User name={user.firstName} age={user.age} />
+                            return <User onDeleteUser={onDeleteButtonClick} key={user.id} userData={user} />
+                        })
+                    }
+                </div>
+            </div>
+        }
+
     </div>
 }
 

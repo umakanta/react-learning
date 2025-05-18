@@ -6,7 +6,7 @@ import UserForm from './Components/UserForm/UserForm';
 import UserList from './Components/UserList/UserList';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import userData from './data/User.json'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import UserPage from './Components/UserPage/UserPage';
 
 function App() {
@@ -14,14 +14,38 @@ function App() {
   const isLoggedIn = JSON.parse(isLoggedInStr)
   console.log(isLoggedIn)
 
-  const [users, setUsers] = useState(userData.users)
+  const [users, setUsers] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
+  // ComponentDidMount + ComponentDidUpdate
+  useEffect(() => {
+    console.log("useeffect....")
+
+    const fetchUsers = async () => {
+      try {
+        const usersRes = await fetch("https://dummyjson.com/users");
+        const usersData = await usersRes.json()
+        console.log("Fetched Results ", userData);
+
+        setUsers(userData.users);
+        setIsLoading(false)
+      } catch (error) {
+        console.log("Error: ", error)
+      }
+
+    };
+
+    fetchUsers();
+  }, [])
+  //opt Arr - accepts dependancy
 
   function onFormSubmit(newUser) {
     console.log("FormSubmit called: ", newUser);
     const usersClone = [newUser, ...users];
     setUsers(usersClone)
   }
+
+  console.log("Render starts ....")
   return <div>
 
     {/* <Form/> */}
@@ -33,12 +57,12 @@ function App() {
 
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<UserList users={users} setUsers={setUsers} />}></Route>
+        <Route path="/" element={<UserList isLoading={isLoading} users={users} setUsers={setUsers} />}></Route>
         <Route path="/login" element={<Login />} />
         <Route path="/counter" element={<Counter />} />
         <Route path="/form" element={<Form />} />
         <Route path="/userform" element={<UserForm onAddUser={onFormSubmit} />} />
-        <Route path="/users/:userId" element={ <UserPage />} />
+        <Route path="/users/:userId" element={<UserPage />} />
       </Routes>
     </BrowserRouter>
 
