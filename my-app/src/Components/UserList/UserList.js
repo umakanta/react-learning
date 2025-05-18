@@ -1,20 +1,19 @@
 import User from "../User/User";
-import userData from "../../data/User.json"
 import "./userlist.css"
 import { useState } from "react";
 import Button from 'react-bootstrap/Button';
 
 
-function UserList() {
+function UserList(props) {
 
     // const users = userData.users
-    const [users, setUsers] = useState(userData.users)
+    // const [users, setUsers] = useState(userData.users)
     // console.log(users);
-
+    const { users, setUsers } = props
 
     function onSortByAge() {
         const sortedUsers = [...users]
-        sortedUsers.sort((user1,user2) => {
+        sortedUsers.sort((user1, user2) => {
             return user1.age - user2.age
         })
         setUsers(sortedUsers);
@@ -22,7 +21,7 @@ function UserList() {
 
     function onDeleteButtonClick(evt, id) {
         console.log('Delete Clicked for userId: ', id)
-        const tempUsers = users.filter((user) =>{
+        const tempUsers = users.filter((user) => {
             return user.id != id;
         })
         setUsers(tempUsers);
@@ -30,22 +29,22 @@ function UserList() {
 
     return <div className="userList">
 
-       
+
         <h2>Users</h2>
         <Button onClick={onSortByAge}>Sort By Age</Button>
 
         <div className="users">
-        {
-            users.map((user) => {
-                // return <User name={user.firstName} age={user.age} />
-                return <User onDeleteUser={onDeleteButtonClick} key={user.id} userData={user}    />
-            })
-        }
+            {
+                users.map((user) => {
+                    // return <User name={user.firstName} age={user.age} />
+                    return <User onDeleteUser={onDeleteButtonClick} key={user.id} userData={user} />
+                })
+            }
 
-        {/* <User name="Umakanta" age="38"/>
+            {/* <User name="Umakanta" age="38"/>
         <User name="Sai" age="31"/>
         <User name="Harse" age="45"/> */}
-</div>
+        </div>
     </div>
 }
 
