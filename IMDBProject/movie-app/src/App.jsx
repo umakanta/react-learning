@@ -21,13 +21,14 @@ function App() {
     setWatchList(filtered)
   }
   //-----------
+
   return (
     <>
       <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home watchList={watchList} addToWatchLiist={addToWatchLiist} removeFromWatchList={removeFromWatchList} />} />
-          <Route path="/watchlist" element={<WatchList watchList={watchList}/>}></Route>
+          <Route path="/watchlist" element={<WatchList watchList={watchList} removeFromWatchList={removeFromWatchList}/>}></Route>
         </Routes>
       </BrowserRouter>
     </>
