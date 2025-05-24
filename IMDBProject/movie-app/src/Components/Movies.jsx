@@ -9,7 +9,6 @@ function Movies(props) {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true)
 
-     const {addToWatchLiist, removeFromWatchList, watchList} = props
     //--------------------------
     const [pageNum, setPageNum] = useState(1)
     const prevPageFn = () => {
@@ -45,7 +44,7 @@ function Movies(props) {
         <div className="flex flex-wrap gap-8 justify-evenly align-center mt-5">
             {
                 movies.map((movieObj) => {
-                    return <MovieCard key={movieObj.id} watchList={watchList} addToWatchLiist={addToWatchLiist} removeFromWatchList={removeFromWatchList} movieObj={movieObj} />
+                    return <MovieCard key={movieObj.id} movieObj={movieObj} />
                 })
             }
         </div>

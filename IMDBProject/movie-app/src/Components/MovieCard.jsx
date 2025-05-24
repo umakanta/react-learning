@@ -1,15 +1,21 @@
+import { useContext } from "react";
+import { WatchListContext } from "../App";
 
 
 function MovieCard(props) {
     const { movieObj } = props;
-    const { addToWatchLiist, removeFromWatchList, watchList } = props    
+     const watchListContextValue = useContext(WatchListContext)
+    console.log("ContextValue: ", watchListContextValue);
 
+    const { addToWatchLiist, removeFromWatchList, watchList } = watchListContextValue    
+
+   
     // console.log("IsArray: ", Array.isArray(watchList), watchList.length);
 
     let isMovieInWatchList = watchList.some((wlMov) => {
        return wlMov.id == movieObj.id;
     });
-    console.log("isMovieInWatchList: ", isMovieInWatchList);
+    // console.log("isMovieInWatchList: ", isMovieInWatchList);
 
     let moviePoster = movieObj.backdrop_path;
     let movieTitle = movieObj.title;

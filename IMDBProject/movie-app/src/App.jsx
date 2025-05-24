@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Home from './Pages/Home/Home'
 import WatchList from './Pages/WatchList/WatchList'
 import Navbar from './Components/Navbar'
+
+export const WatchListContext = React.createContext()
+
 
 function App() {
 
@@ -37,13 +40,15 @@ function App() {
 
   return (
     <>
+    <WatchListContext.Provider value={{watchList, addToWatchLiist, removeFromWatchList}}>
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home watchList={watchList} addToWatchLiist={addToWatchLiist} removeFromWatchList={removeFromWatchList} />} />
-          <Route path="/watchlist" element={<WatchList watchList={watchList} removeFromWatchList={removeFromWatchList} />}></Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/watchlist" element={<WatchList />}></Route>
         </Routes>
       </BrowserRouter>
+      </WatchListContext.Provider>
     </>
   )
 }
