@@ -7,6 +7,7 @@ import Navbar from './Components/Navbar'
 import Counter from './Pages/Counter/Counter'
 import { Provider } from "react-redux";
 import { store } from './Redux/Store/Store'
+import TodoList from './Pages/ToDoList/TodoList'
 
 export const WatchListContext = React.createContext()
 
@@ -51,6 +52,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/watchlist" element={<WatchList />}></Route>
               <Route path="/counter" element={<Counter />}></Route>
+              <Route path="/todolist" element={<TodoList />}></Route>
             </Routes>
           </BrowserRouter>
         </WatchListContext.Provider>
