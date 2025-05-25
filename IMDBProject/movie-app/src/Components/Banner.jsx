@@ -28,7 +28,7 @@ function Banner() {
     const [bannerImage, setBannerImage] = useState(PlaceHolder)
     const [movieTitle, setMovieTitle] = useState("")
 
-    return <div className="h-[20vh] bg-cover bg-center flex items-end justify-center"
+    return <div className="h-[70vh] bg-cover bg-center flex items-end justify-center"
     style={{backgroundImage:`url(${bannerImage})`}}>
         <div className="bg-gray-500 pl-2 pr-2 rounded-md text-white text-2xl">
             {movieTitle}
