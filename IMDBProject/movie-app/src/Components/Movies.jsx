@@ -1,39 +1,41 @@
 import { useEffect, useState } from "react";
 import Spinner from "../Common/Spinner/Spinner";
-import axios from "axios";
 import MovieCard from "./MovieCard";
 import Pagination from "./Pagination/Pagination";
-
+import { useDispatch, useSelector } from "react-redux"
+import { fetchMovies } from "../Redux/Slice/movieSlice";
 
 function Movies(props) {
-    const [movies, setMovies] = useState([]);
-    const [loading, setLoading] = useState(true)
 
+    // const [movies, setMovies] = useState([]);
+    // const [loading, setLoading] = useState(true)
+    const {movies, loading,pageNumber} = useSelector((state)=> state.moviesState)
+    const dispatch = useDispatch();
     //--------------------------
-    const [pageNum, setPageNum] = useState(1)
+    // const [pageNum, setPageNum] = useState(1)
     const prevPageFn = () => {
-        if (pageNum > 1) {
-            setPageNum(pageNum - 1)
+        if (pageNumber > 1) {
+            dispatch(prevPageFn());
         }
     }
 
     const nextPageFn = () => {
-        setPageNum(pageNum + 1)
+        dispatch(nextPageFn());
 
     }
     //----------------------------
-    const fetchMovieData = async () => {
-        setLoading(true);
+    // const fetchMovieData = async () => {
+    //     setLoading(true);
 
-        const response = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=439b69205cd908703eed7d441ac88094&page=${pageNum}`);
-        let movies = response.data.results;
+    //     const response = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=439b69205cd908703eed7d441ac88094&page=${pageNum}`);
+    //     let movies = response.data.results;
 
-        setMovies(movies);
-        setLoading(false);
-    };
+    //     setMovies(movies);
+    //     setLoading(false);
+    // };
     useEffect(() => {
-        fetchMovieData();
-    }, [pageNum])
+        dispatch(fetchMovies(pageNumber));
+    }, [dispatch,pageNumber])
 
     if (loading) {
         return <div className="flex justify-center" > <Spinner /> </div>
@@ -49,7 +51,7 @@ function Movies(props) {
             }
         </div>
 
-        <Pagination pageNum={pageNum} prevPageFn={prevPageFn} nextPageFn={nextPageFn} />
+        <Pagination pageNum={pageNumber} prevPageFn={prevPageFn} nextPageFn={nextPageFn} />
     </div>
 }
 
