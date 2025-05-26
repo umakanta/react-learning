@@ -1,13 +1,16 @@
-import Counter from './Components/Counter/Counter';
-import Form from './Components/Form/Form';
-import Login from './Components/Login/Login';
-import NavbarComp from './Components/Navbar/Navbar';
-import UserForm from './Components/UserForm/UserForm';
-import UserList from './Components/UserList/UserList';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import NavbarComp from './Components/Navbar/Navbar';
+import UserList from './Components/UserList/UserList';
 import userData from './data/User.json'
-import { useEffect, useState } from 'react';
-import UserPage from './Components/UserPage/UserPage';
+import { lazy, Suspense, useEffect, useState } from 'react';
+
+const Counter = lazy(() => import("./Components/Counter/Counter"));
+const Login = lazy(() => import("./Components/Login/Login"));
+const UserForm = lazy(() => import("./Components/UserForm/UserForm"));
+const Form = lazy(() => import("./Components/Form/Form"));
+const UserPage = lazy(() => import("./Components/UserPage/UserPage"));
+const TodoList = lazy(()=> import("./Components/TodoList/TodoList"))
+
 
 function App() {
   const isLoggedInStr = localStorage.getItem("isLoggedIn");
@@ -58,12 +61,42 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<UserList isLoading={isLoading} users={users} setUsers={setUsers} />}></Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/counter" element={<Counter />} />
-        <Route path="/form" element={<Form />} />
-        <Route path="/userform" element={<UserForm onAddUser={onFormSubmit} />} />
-        <Route path="/users/:userId" element={<UserPage />} />
+        <Route path="/login" element={
+          <Suspense fallback={<div>Loading Login Component....</div>}>
+            <Login />
+          </Suspense>
+        } />
+        <Route path="/counter" element={
+
+          <Suspense fallback={<div>Loading Counter Component....</div>}>
+            <Counter />
+          </Suspense>
+
+        } />
+        <Route path="/form" element={
+          <Suspense fallback={<div>Loading Form Component....</div>}>
+            <Form />
+          </Suspense>
+        } />
+        <Route path="/userform" element={
+          <Suspense fallback={<div>Loading UserForm Component....</div>}>
+            <UserForm onAddUser={onFormSubmit} />
+          </Suspense>
+        } />
+        <Route path="/users/:userId" element={
+          <Suspense fallback={<div>Loading UserForm Component....</div>}>
+            <UserPage />
+          </Suspense>
+        } />
+
+      <Route path="/todolist" element={
+          <Suspense fallback={<div>Loading TodoList Component....</div>}>
+            <TodoList />
+          </Suspense>
+        } />
+
       </Routes>
+
     </BrowserRouter>
 
   </div>
