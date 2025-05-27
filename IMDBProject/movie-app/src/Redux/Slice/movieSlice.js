@@ -5,7 +5,7 @@ export const fetchMovies = createAsyncThunk(
     'movies/fetchMovies',
     async (pageNumber) => {
         console.log("Making API call...")
-        const response = await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=439b69205cd908703eed7d441ac88094&page=${pageNumber}`);
+        const response =  await fetch(`${import.meta.env.VITE_MOVIES_BACKEND_URL}${pageNumber}`); 
         // let movies = response.data.results;
         if (!response.ok) {
             throw new Error("Failed to fetch movies....")
