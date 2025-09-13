@@ -7,7 +7,7 @@ function User(props) {
     // console.log(props)
     const user = props.userData;
     return <div className="user">
-        <Link to={`/users/${user.id}`}>
+        <Link to={`/users/${user.id}`} state={{user}}>
         <p style={{ fontSize: "x-large", fontWeight: "bold" }}>Id #{user.id}</p>
         <img src={user.image} />
         <p>Name: {user.firstName + " " + user.lastName} </p>
