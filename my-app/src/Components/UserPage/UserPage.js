@@ -1,8 +1,12 @@
- 
+ import { useLocation } from "react-router-dom";
 
- function UserPage() {
+ function UserPage(props) {
+   const location = useLocation();
+    const user = location.state?.user;
+    const userId = user.id
+
     return <div>
-    <h3> I am a single user</h3>
+    <h3> I am {user.firstName} - a single userId: {userId}</h3>
     </div>
  }
 
